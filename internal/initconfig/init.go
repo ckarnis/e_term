@@ -1,4 +1,4 @@
-package config
+package initconfig
 
 import (
 	"e_term/internal/stuff"
@@ -9,10 +9,8 @@ import (
 	"github.com/pelletier/go-toml"
 )
 
-const configFile = "config.toml"
-
 func InitConfigFile(force bool) error {
-	if stuff.FileExists(configFile) && !force {
+	if stuff.FileExists(stuff.ConfigFile) && !force {
 		if !stuff.IsTerminal() {
 			return errors.New("config.toml exists (use --force to overwrite)")
 		}
@@ -33,5 +31,5 @@ func InitConfigFile(force bool) error {
 		return err
 	}
 
-	return os.WriteFile(configFile, data, 0644)
+	return os.WriteFile(stuff.ConfigFile, data, 0644)
 }

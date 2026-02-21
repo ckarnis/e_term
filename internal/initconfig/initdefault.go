@@ -1,4 +1,4 @@
-package config
+package initconfig
 
 type ConfigDefaults struct {
 	Fred   APIConfig `toml:"fred"`

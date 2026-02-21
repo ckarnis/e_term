@@ -1,6 +1,7 @@
-package config
+package addconfig
 
 import (
+	"e_term/internal/stuff"
 	"fmt"
 	"os"
 	"regexp"
@@ -12,7 +13,7 @@ import (
 
 func AddSource() {
 	file, err := os.OpenFile(
-		configFile,
+		stuff.ConfigFile,
 		os.O_APPEND|os.O_WRONLY,
 		0644,
 	)

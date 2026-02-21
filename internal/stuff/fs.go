@@ -9,3 +9,4 @@ func FileExists(name string) bool {
 
 // if file exists err  is nil
 // true is returned
+const ConfigFile = "config.toml"

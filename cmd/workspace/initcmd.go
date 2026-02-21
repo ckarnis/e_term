@@ -1,7 +1,7 @@
 package workspace
 
 import (
-	"e_term/internal/config"
+	"e_term/internal/initconfig"
 
 	"github.com/spf13/cobra"
 )
@@ -12,7 +12,7 @@ var InitCmd = &cobra.Command{
 	Use:   "init",
 	Short: "Initialize a config.toml file in the current directory",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		return config.InitConfigFile(force)
+		return initconfig.InitConfigFile(force)
 	},
 }
 
