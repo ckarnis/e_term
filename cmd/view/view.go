@@ -12,13 +12,14 @@ var Cmd = &cobra.Command{
 	Use:     "view [provider] [endpoint]",
 	Aliases: []string{"v"},
 	Short:   "Query a configured provider",
-	Args:    cobra.ExactArgs(2),
+	Args:    cobra.ExactArgs(3),
 
 	RunE: func(cmd *cobra.Command, args []string) error {
 		provider := args[0]
 		endpoint := args[1]
+		numofobs := args[2]
 
-		body, err := query.QueryProvider(provider, endpoint)
+		body, err := query.QueryProvider(provider, endpoint, numofobs)
 		if err != nil {
 			return err
 		}

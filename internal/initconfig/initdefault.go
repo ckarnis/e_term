@@ -6,22 +6,35 @@ type ConfigDefaults struct {
 }
 
 type APIConfig struct {
-	APIKey         string `toml:"api_key"`
-	BaseURL        string `toml:"base_url"`
-	TimeoutSeconds int    `toml:"timeout_seconds"`
+	BaseURL        string     `toml:"base_url"`
+	APIKey         string     `toml:"api_key"`
+	TimeoutSeconds int        `toml:"timeout_seconds"`
+	Endpoints      []Endpoint `toml:"endpoint"`
+}
+
+type Endpoint struct {
+	Name string `toml:"name"`
+	Path string `toml:"path"`
 }
 
 func defaultConfig() ConfigDefaults {
 	return ConfigDefaults{
 		Fred: APIConfig{
+			BaseURL:        "https://api.stlouisfed.org/fred/",
 			APIKey:         "",
-			BaseURL:        "https://api.stlouisfed.org/fred",
 			TimeoutSeconds: 10,
+			Endpoints: []Endpoint{
+				{Name: "series", Path: "/series"},
+				{Name: "observations", Path: "/series/observations"},
+			},
 		},
 		Census: APIConfig{
-			APIKey:         "",
 			BaseURL:        "",
+			APIKey:         "",
 			TimeoutSeconds: 10,
+			Endpoints: []Endpoint{
+				{Name: "population", Path: "/data/population"},
+			},
 		},
 	}
 }

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/BurntSushi/toml"
@@ -20,7 +21,8 @@ type Config map[string]Provider
 
 const configPath = "config.toml"
 
-func QueryProvider(name string, endpoint string) (map[string]interface{}, error) {
+func QueryProvider(name string, endpoint string, numOfObs string) (map[string]interface{}, error) {
+	nums, err := strconv.Atoi(numOfObs)
 	var cfg Config
 	if _, err := toml.DecodeFile(configPath, &cfg); err != nil {
 		return nil, err
@@ -43,7 +45,11 @@ func QueryProvider(name string, endpoint string) (map[string]interface{}, error)
 
 	switch name {
 	case "fred":
-		url += "&api_key=" + provider.APIKey + "&file_type=json"
+		url += fmt.Sprintf(
+			"&api_key=%s&file_type=json&sort_order=desc&limit=%d",
+			provider.APIKey,
+			nums,
+		)
 	case "census":
 		url += "no"
 	}
