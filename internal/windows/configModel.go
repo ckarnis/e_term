@@ -1,6 +1,7 @@
-package editconfig
+package windows
 
 import (
+	"ecoTerm/internal/config"
 	"fmt"
 	"os"
 	"strconv"
@@ -11,10 +12,6 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 )
-
-// rewrite using simple list instead of default tea list
-
-const configPath = "config.toml"
 
 var docStyle = lipgloss.NewStyle().Margin(1, 0, 2, 4)
 var (
@@ -40,7 +37,7 @@ func (i item) Title() string       { return string(i) }
 func (i item) Description() string { return "" }
 func (i item) FilterValue() string { return string(i) }
 
-type model struct {
+type ConfigModel struct {
 	mode     mode
 	selected string
 	list     []string
@@ -56,9 +53,14 @@ type formModel struct {
 	submitted  bool
 }
 
-func initialModel() model {
+var path string
+
+func NewConfigModel(name string) ConfigModel {
 	var fileData map[string]any
-	if _, err := toml.DecodeFile(configFile, &fileData); err != nil {
+
+	path = config.GetConfigPath("ecoTerm")
+
+	if _, err := toml.DecodeFile(path, &fileData); err != nil {
 		fmt.Println("can't read config.toml")
 		os.Exit(1)
 	}
@@ -69,18 +71,18 @@ func initialModel() model {
 
 	}
 
-	return model{
+	return ConfigModel{
 		mode: modeList,
 		tree: fileData,
 		list: items,
 	}
 }
 
-func (m model) Init() tea.Cmd {
+func (m ConfigModel) Init() tea.Cmd {
 	return nil
 }
 
-func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+func (m ConfigModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch m.mode {
 	case modeList:
 		switch msg := msg.(type) {
@@ -89,6 +91,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			switch msg.String() {
 
 			case "ctrl+c", "esc":
+				Manager.Close("config-edit")
 				return m, tea.Quit
 
 			case "up", "k":
@@ -153,7 +156,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	return m, nil
 }
 
-func (m model) View() string {
+func (m ConfigModel) View() string {
 	switch m.mode {
 	case modeList:
 		s := "Select a source to edit\n\n"
@@ -274,7 +277,7 @@ func (f formModel) View() string {
 	return s
 }
 
-func (m *model) save() error {
+func (m *ConfigModel) save() error {
 	sub, ok := m.tree[m.selected].(map[string]any)
 	if !ok {
 		return fmt.Errorf("invalid table: %s", m.selected)
@@ -291,7 +294,7 @@ func (m *model) save() error {
 	sub["api_key"] = apiKey
 	sub["timeout_seconds"] = timeout
 
-	file, err := os.Create(configPath)
+	file, err := os.Create(path)
 	if err != nil {
 		return err
 	}

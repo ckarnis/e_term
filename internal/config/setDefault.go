@@ -1,8 +1,7 @@
-package initconfig
+package config
 
 type ConfigDefaults struct {
-	Fred   APIConfig `toml:"fred"`
-	Census APIConfig `toml:"census"`
+	Fred APIConfig `toml:"fred"`
 }
 
 type APIConfig struct {
@@ -12,28 +11,24 @@ type APIConfig struct {
 	Endpoints      []Endpoint `toml:"endpoint"`
 }
 
+type RSSConfig struct {
+	BaseURL   string     `toml:"base_url"`
+	Endpoints []Endpoint `toml:"endpoint"`
+}
+
 type Endpoint struct {
 	Name string `toml:"name"`
 	Path string `toml:"path"`
 }
 
-func defaultConfig() ConfigDefaults {
+func DefaultConfig() ConfigDefaults {
 	return ConfigDefaults{
 		Fred: APIConfig{
-			BaseURL:        "https://api.stlouisfed.org/fred/",
-			APIKey:         "",
-			TimeoutSeconds: 10,
+			BaseURL: "https://api.stlouisfed.org/fred/",
+			APIKey:  "",
 			Endpoints: []Endpoint{
 				{Name: "series", Path: "/series"},
 				{Name: "observations", Path: "/series/observations"},
-			},
-		},
-		Census: APIConfig{
-			BaseURL:        "",
-			APIKey:         "",
-			TimeoutSeconds: 10,
-			Endpoints: []Endpoint{
-				{Name: "population", Path: "/data/population"},
 			},
 		},
 	}
