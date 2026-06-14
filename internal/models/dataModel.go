@@ -1,4 +1,4 @@
-package windows
+package models
 
 import tea "github.com/charmbracelet/bubbletea"
 

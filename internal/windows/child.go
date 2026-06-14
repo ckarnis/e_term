@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 
+	"ecoTerm/internal/models"
+
 	tea "github.com/charmbracelet/bubbletea"
 )
 
@@ -18,7 +20,7 @@ func RunData(name string) {
 	fmt.Println("window:", name)
 	fmt.Println("pid:", pid)
 
-	p := tea.NewProgram(NewDataModel(name))
+	p := tea.NewProgram(models.NewDataModel(name))
 
 	_, _ = p.Run()
 }
@@ -31,7 +33,7 @@ func RunConfigChild(name string) {
 
 	defer RemovePID(name)
 
-	p := tea.NewProgram(NewConfigModel("config"))
+	p := tea.NewProgram(models.NewConfigModel("config"))
 
 	_, _ = p.Run()
 }

@@ -27,6 +27,9 @@ func execute(input string) string {
 	case "config":
 		return commands.ConfigCommand(parts[1:])
 
+	case "view":
+		return commands.View(parts[1:])
+
 	default:
 		return "unknown command"
 	}
