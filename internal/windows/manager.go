@@ -21,9 +21,12 @@ func NewManager() *WindowManager {
 
 func (wm *WindowManager) Open(name string) error {
 
-	if _, exists := wm.windows[name]; exists {
+	if _, err := ReadPID(name); err == nil {
 		return fmt.Errorf("already open")
 	}
+	/*if _, exists := wm.windows[name]; exists {
+		return fmt.Errorf("already open")
+	}*/
 
 	exe, err := os.Executable()
 

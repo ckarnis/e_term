@@ -28,7 +28,7 @@ func ConfigCommand(args []string) string {
 }
 
 func edit() string {
-	err := windows.Manager.Open("config-add")
+	err := windows.Manager.Open("config-edit")
 	if err != nil {
 		return err.Error()
 	}
@@ -38,7 +38,7 @@ func edit() string {
 
 func add() string {
 
-	return "r"
+	return "placeholder for an add data source command"
 }
 
 func clear() string {
@@ -60,5 +60,5 @@ func clear() string {
 		return "error"
 	}
 
-	return "cleared"
+	return "cleared, config reset to default"
 }

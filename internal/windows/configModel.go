@@ -91,7 +91,7 @@ func (m ConfigModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			switch msg.String() {
 
 			case "ctrl+c", "esc":
-				Manager.Close("config-edit")
+
 				return m, tea.Quit
 
 			case "up", "k":
