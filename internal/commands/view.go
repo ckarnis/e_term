@@ -2,9 +2,8 @@ package commands
 
 import (
 	"ecoTerm/internal/config"
+	"ecoTerm/internal/view"
 	"fmt"
-	"io"
-	"net/http"
 	"os"
 
 	"github.com/BurntSushi/toml"
@@ -12,7 +11,7 @@ import (
 
 func View(args []string) string {
 	if len(args) == 0 {
-		return "usage: view <source>"
+		return "usage: view <source> <type> <dataset>"
 	}
 
 	var fileData map[string]any
@@ -25,30 +24,14 @@ func View(args []string) string {
 	}
 
 	item, ok := fileData[args[0]]
-
 	if !ok {
 		return fmt.Sprintf("source %q not found", args[0])
 	}
 
-	m := item.(map[string]any)
-	baseURL := m["base_url"].(string)
-	apiKey := m["api_key"].(string)
-
-	url := baseURL + "releases?api_key=" + apiKey
-
-	resp, err := http.Get(url)
-	if err != nil {
-		fmt.Println("Error making request:", err)
-		return "error"
+	switch args[0] {
+	case "fred":
+		return view.ViewFred(args[1:], item)
+	default:
+		return "unknow source"
 	}
-
-	defer resp.Body.Close()
-
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return fmt.Sprintf("Error reading response: %v", err)
-	}
-	fmt.Println("Status:", resp.Status)
-	fmt.Println("Response:", string(body))
-	return url
 }
