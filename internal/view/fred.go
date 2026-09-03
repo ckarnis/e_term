@@ -1,7 +1,7 @@
 package view
 
 import (
-	"ecoTerm/internal/fred"
+	"eTerm/internal/fred"
 )
 
 func ViewFred(args []string, item any) string {

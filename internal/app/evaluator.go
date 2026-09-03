@@ -1,7 +1,7 @@
 package app
 
 import (
-	"ecoTerm/internal/commands"
+	"eTerm/internal/commands"
 	"strings"
 )
 

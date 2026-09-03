@@ -1,7 +1,7 @@
 package commands
 
 import (
-	"ecoTerm/internal/windows"
+	"eTerm/internal/windows"
 )
 
 func Open(args []string) string {

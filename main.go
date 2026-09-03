@@ -5,9 +5,9 @@ import (
 	"os"
 	"strings"
 
-	"ecoTerm/internal/app"
-	"ecoTerm/internal/config"
-	"ecoTerm/internal/windows"
+	"eTerm/internal/app"
+	"eTerm/internal/config"
+	"eTerm/internal/windows"
 )
 
 func main() {
@@ -29,7 +29,7 @@ func main() {
 		return
 	}
 
-	if err := config.Init("ecoTerm"); err != nil {
+	if err := config.Init("eTerm"); err != nil {
 		log.Fatal(err)
 	}
 

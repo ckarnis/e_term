@@ -1,8 +1,8 @@
 package commands
 
 import (
-	"ecoTerm/internal/config"
-	"ecoTerm/internal/windows"
+	"eTerm/internal/config"
+	"eTerm/internal/windows"
 
 	"os"
 

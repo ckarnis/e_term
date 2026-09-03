@@ -1,7 +1,7 @@
 package models
 
 import (
-	"ecoTerm/internal/config"
+	"eTerm/internal/config"
 	"fmt"
 	"os"
 	"strconv"
@@ -58,7 +58,7 @@ var path string
 func NewConfigModel(name string) ConfigModel {
 	var fileData map[string]any
 
-	path = config.GetConfigPath("ecoTerm")
+	path = config.GetConfigPath("eTerm")
 
 	if _, err := toml.DecodeFile(path, &fileData); err != nil {
 		fmt.Println("can't read config.toml")

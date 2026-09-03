@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"ecoTerm/internal/models"
+	"eTerm/internal/models"
 
 	tea "github.com/charmbracelet/bubbletea"
 )

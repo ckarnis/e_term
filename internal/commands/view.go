@@ -1,8 +1,8 @@
 package commands
 
 import (
-	"ecoTerm/internal/config"
-	"ecoTerm/internal/view"
+	"eTerm/internal/config"
+	"eTerm/internal/view"
 	"fmt"
 	"os"
 

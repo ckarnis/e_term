@@ -1,5 +1,3 @@
-//go:build windows
-
 package windows
 
 import (
@@ -9,7 +7,7 @@ import (
 )
 
 func openConsoleFiles() (*os.File, *os.File, error) {
-	// Open CONIN$ with the specific access flags Windows requires
+
 	conin, err := windows.CreateFile(
 		windows.StringToUTF16Ptr("CONIN$"),
 		windows.GENERIC_READ|windows.GENERIC_WRITE,
