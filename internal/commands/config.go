@@ -42,7 +42,7 @@ func add() string {
 }
 
 func clear() string {
-	path := config.GetConfigPath("ecoTerm")
+	path := config.GetConfigPath("eTerm")
 
 	cfg := config.DefaultConfig()
 

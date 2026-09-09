@@ -46,7 +46,7 @@ func Run() {
 func printBanner() {
 
 	fmt.Println()
-	fmt.Println("\033[32m[eco]Terminal\033[0m")
+	fmt.Println("\033[32m[e]Shell\033[0m")
 	fmt.Println("type 'help' for commands")
 	fmt.Println()
 }
